@@ -10,6 +10,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        gitstarted=gitstarted.scripts.cli:cli
+        gitstarted=src.scripts.cli:cli
     ''',
 )

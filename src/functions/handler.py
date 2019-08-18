@@ -7,4 +7,4 @@ def create_repo(token, options):
         'Authorization': f'token {token}'
     }
     response = requests.post(url, data=options, headers=headers)
-    print(response.content)
+    return response
