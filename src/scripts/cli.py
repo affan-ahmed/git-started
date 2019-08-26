@@ -1,12 +1,14 @@
 """
 Python command line script to automate git project creation
 """
+import json
 import click
 from src.functions.handler import create_repo
 
 @click.command()
-@click.option('-d', '--description', type=str, required=False, help="A short description of the repository")
+@click.option('-d', '--description', required=False, help="A short description of the repository")
 @click.option('--private', required=False, is_flag=True, flag_value=True, default=False, show_default="False", help="Enable to create a private repository")
+@click.option('--homepage', required=False, help="A URL with more information about the repository")
 @click.option('--has-issues', type=bool, required=False, default=True, show_default="True", help="Either true to enable issues for this repository or false to disable them")
 @click.option('--has-projects', type=bool, required=False, default=True, show_default="True", help="Either true to enable projects for this repository or false to disable them")
 @click.option('--has-wiki', type=bool, required=False, default=True, show_default="True", help="Either true to enable the wiki for this repository or false to disable it")
@@ -20,5 +22,6 @@ from src.functions.handler import create_repo
 @click.argument('name', required=True)
 @click.argument('token', required=True)
 def cli(token, **kwargs):
-    #After cleaning all data, pass to handler for POST request
-    response = create_repo(token, kwargs)
+    #After cleaning all data, pass to handler for POST request and retrieve response
+    response = create_repo(token, json.dumps(kwargs))
+    print(response.content)
